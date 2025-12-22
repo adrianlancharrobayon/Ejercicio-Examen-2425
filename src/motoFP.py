@@ -76,7 +76,7 @@ def escuderias_con_solo_un_piloto(carreras: list[CarreraFP]) -> list[str]:
     
     return lista
 
-def piloto_racha_mas_larga_victorias_consecutivas(carreras: list[CarreraFP], año: int|None = None) -> tuple[str, int]:
+#def piloto_racha_mas_larga_victorias_consecutivas(carreras: list[CarreraFP], año: int|None = None) -> tuple[str, int]:
     
 
 
