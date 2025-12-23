@@ -20,7 +20,7 @@ def lee_carreras(filename: str) -> List[CarreraFP]:
         for fh, circuito, pais, seco, t, nombre_ganador, marca_ganador, nombre_segundo_clasificado, marca_segundo_clasificado,nombre_tercer_clasificado, marca_tercero_clasificado in lector:
             podio=[Piloto(nombre_ganador, marca_ganador), Piloto(nombre_segundo_clasificado, marca_segundo_clasificado), Piloto(nombre_tercer_clasificado, marca_tercero_clasificado)]
             fecha_hora= datetime.strptime(fh, "%Y-%m-%d %H:%M")
-            if seco=="seco":
+            if seco=="Seco":
                seco=True
             else:
                seco=False
@@ -76,7 +76,50 @@ def escuderias_con_solo_un_piloto(carreras: list[CarreraFP]) -> list[str]:
     
     return lista
 
-#def piloto_racha_mas_larga_victorias_consecutivas(carreras: list[CarreraFP], año: int|None = None) -> tuple[str, int]:
+def piloto_racha_mas_larga_victorias_consecutivas(carreras: list[CarreraFP], año: int|None = None) -> tuple[str, int]:
+    carreras_filtradas=carreras
+    if año is not None:
+        carreras_filtradas= [c for c in carreras if c.fecha_hora.year==año]
+    carreras_ordenadas=sorted(carreras_filtradas, key= lambda c:c.fecha_hora)
+    
+    mejor_racha=0
+    mejor_piloto=""
+    ganador_anterior=None
+    racha=0
+    
+    for carrera in carreras_ordenadas:
+        ganador=carrera.podio[0].nombre
+        if ganador==ganador_anterior:
+            racha+=1
+            
+        else:
+            if racha>mejor_racha:
+                mejor_racha=racha
+                mejor_piloto=ganador_anterior
+            racha=1
+        ganador_anterior=ganador
+        
+    
+    return(mejor_piloto, mejor_racha)
+    
+
+def ultimos_ganadores_por_circuito(carreras:list[CarreraFP], n: int, estado: str) -> dict[str, list[str]]:
+    
+    seco=(estado=="Seco")
+    
+    carreras_ordenadas= sorted(carreras, key=lambda c:c.fecha_hora, reverse=True)
+    
+    diccionario={}
+    
+    for c in carreras_ordenadas:
+        if c.seco==seco:
+            if c.circuito not in diccionario:
+                diccionario[c.circuito]=[]
+            if len(diccionario[c.circuito])<n:
+                ganador=c.podio[0].nombre
+                diccionario[c.circuito].append(ganador)
+
+    return diccionario
     
 
 
