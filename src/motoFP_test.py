@@ -18,8 +18,9 @@ def ultimos_ganadores_por_circuito_test(carreras, n, estado):
     return ultimos_ganadores_por_circuito(carreras, n, estado)
 if __name__== "__main__":
     carreras=lee_carreras_test("./data/mundial_motofp.csv")
-    #print(carreras)
-    #lee_carreras_test("./data/mundial_motofp.csv")
+    #print(f"Número de carreras leídas: {len(carreras)}")
+    #print(f"Las dos primeras son: {carreras[:2]}")
+    #print(f"Las dos últimas son: {carreras[-2:]}")
     #print(f"Test maximo_dias_sin_ganar: ")
     #print(f"Para Marc Marquez:{maximo_dias_sin_ganar_test(carreras, "Marc Marquez")}")
     #print(f"Para Jorge Martin:{maximo_dias_sin_ganar_test(carreras, "Jorge Martin")}")
